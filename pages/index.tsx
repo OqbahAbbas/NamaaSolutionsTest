@@ -198,14 +198,11 @@ const Container = styled(BaseContainer)`
 	padding: 32px 100px;
 	background-color: #e8efff;
 	min-height: 100vh;
-	display: flex;
-	flex-wrap: wrap;
 	gap: 32px;
-	height: fit-content;
 
 	.cardsContainer {
 		display: grid;
-		grid-auto-flow: column;
+		grid-auto-flow: dense;
 		gap: 16px;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 	}
