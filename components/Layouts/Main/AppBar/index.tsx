@@ -44,7 +44,7 @@ const AppBar = () => {
 						<img
 							src={locale === 'ar' ? '/LogoAr.png' : '/LogoEn.png'}
 							alt=""
-							height={25}
+							height={35}
 						/>
 					</LogoContainer>
 				</Link>
@@ -87,8 +87,9 @@ const Container = styled(ContainerFluid)`
 	z-index: 2;
 	background: ${({ theme }) => theme.colors.secondary};
 	display: grid;
-	position: fixed;
     width: 100%;	
+	position: fixed;
+	opacity: 0.9;
 
 	> div {
 		position: relative;

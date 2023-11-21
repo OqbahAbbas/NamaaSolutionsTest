@@ -68,8 +68,8 @@ const blue500 = '#644DFC'
  * Main Colors
  */
 
-const primary = '#196dfb'
-const secondary = '#1a1f71'
+const primary = '#589e80'
+const secondary = '#402c81'
 const navy = '#13314E'
 
 const breakpointValues = {

@@ -1,5 +1,5 @@
 export default {
 	titleDivider: ` | `,
-	titleSuffix: `فلاي أكيد`,
-	appleMobileWebAppTitle: `فلاي أكيد`,
+	titleSuffix: `نماء للحلول البرمجية`,
+	appleMobileWebAppTitle: `نماء للحلول البرمجية`,
 }

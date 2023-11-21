@@ -1,5 +1,5 @@
 export default {
 	titleDivider: ` | `,
-	titleSuffix: `FlyAkeed`,
-	appleMobileWebAppTitle: `FlyAkeed`,
+	titleSuffix: `Namaa Solutions`,
+	appleMobileWebAppTitle: `Namaa Solutions`,
 }
