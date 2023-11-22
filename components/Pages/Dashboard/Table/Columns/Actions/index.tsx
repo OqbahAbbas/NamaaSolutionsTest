@@ -4,6 +4,7 @@ import { ColumnDefinition, TableActionMenu } from '@admixltd/admix-component-lib
 import StyledMenu from '@components/Layouts/Main/StyledMenu/StyledMenu'
 import EditButton from './EditButton'
 import DeleteButton from './DeleteButton'
+import ViewDetailsButton from './ViewDetailsButton'
 
 export default (labels: Labels[keyof Labels]['pages']['dashboard']['table']['columns']) =>
 	({
@@ -16,6 +17,9 @@ export default (labels: Labels[keyof Labels]['pages']['dashboard']['table']['col
 					<StyledMenu>
 						<div className="titleContainer">{labels.actions.menuTitle}</div>
 						<div className="menuGroup">
+							<ViewDetailsButton id={id} closeMenu={closeMenu}>
+								{labels.actions.viewDetails}
+							</ViewDetailsButton>
 							<EditButton id={id} closeMenu={closeMenu}>
 								{labels.actions.edit}
 							</EditButton>

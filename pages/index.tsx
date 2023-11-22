@@ -207,7 +207,7 @@ Page.getInitialProps = context =>
 	initialPropsWrapper(
 		async ({ req }) => {
 			const moviesCookie = getCookie(MoviesCookieName, { req }) as string
-			const movies = JSON.parse(moviesCookie)
+			const movies = moviesCookie ? JSON.parse(moviesCookie) : []
 			return {
 				movies: movies ?? [],
 			}

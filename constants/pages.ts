@@ -20,6 +20,11 @@ const pages = {
 			url: url('/create'),
 		} as Page),
 	},
+	details: {
+		...({
+			url: url('/details'),
+		} as Page),
+	},
 }
 
 export default pages

@@ -124,12 +124,13 @@ const dashboard = {
 			actions: {
 				menuTitle: 'Actions',
 				edit: 'Edit',
+				viewDetails: 'View Details',
 				delete: {
 					label: 'Delete',
 					modal: {
 						title: 'Delete Movie',
 						description:
-							'This is irreversible, are you sure you want to delete this attribute?',
+							'This is irreversible, are you sure you want to delete this movie?',
 						confirm: 'Delete',
 						cancel: 'Cancel',
 					},
@@ -144,10 +145,6 @@ const dashboard = {
 				hideAllLabel: 'Hide all',
 				showAllLabel: 'Show all',
 			},
-		},
-		footer: {
-			rowsPerPage: 'Rows per page:',
-			pageCounter: (from: number, to: number, total: number) => `${from}-${to} from ${total}`,
 		},
 	},
 }

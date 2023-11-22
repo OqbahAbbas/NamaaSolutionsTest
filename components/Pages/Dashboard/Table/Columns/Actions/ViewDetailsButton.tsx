@@ -1,4 +1,4 @@
-import { ReactComponent as Edit } from '@svg/pages/dashboard/edit.svg'
+import { ReactComponent as Search } from '@svg/Table/search.svg'
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { Button } from '@admixltd/admix-component-library'
 import { useRouter } from 'next/router'
@@ -24,11 +24,11 @@ const EditButton: FC<PropsWithChildren<{ id: Movie['id']; closeMenu: () => void 
 			disabled={false}
 			shineLoading={loading}
 			color="text"
-			icon={<Edit />}
+			icon={<Search />}
 			onClick={() => {
 				if (loading) return
 				setLoading(true)
-				router.push(`${pages.dashboard.url}${id}`)
+				router.push(`${pages.details.url}/${id}`)
 			}}
 		>
 			{children}

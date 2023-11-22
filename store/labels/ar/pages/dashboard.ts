@@ -106,6 +106,7 @@ const dashboard = {
 			released: 'سنة الإصدار: : ',
 			actorsCount: 'عدد الممثلين: ',
 			actions: {
+				viewDetails: 'عرض التفاصيل',
 				edit: 'تعديل',
 				delete: 'حذف',
 			},
@@ -143,10 +144,6 @@ const dashboard = {
 				hideAllLabel: 'إخفاء الكل',
 				showAllLabel: 'إظهار الكل',
 			},
-		},
-		footer: {
-			rowsPerPage: 'عدد الأسطر في الصفحة:',
-			pageCounter: (from: number, to: number, total: number) => `${from}-${to} من ${total}`,
 		},
 	},
 }

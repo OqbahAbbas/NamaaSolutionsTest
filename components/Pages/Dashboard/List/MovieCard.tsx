@@ -8,25 +8,67 @@ import { useRecoilValue } from 'recoil'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import pages from '@constants/pages'
+import { getCookie, setCookie } from 'cookies-next'
+import { MoviesAtom, MoviesCookieName } from '@atoms/Dashboard'
+import { setRecoil } from '@admixltd/admix-component-library/RecoilNexus'
+import { Snackbar } from '@admixltd/admix-component-library/Snackbar'
+import dynamic from 'next/dynamic'
+import { getModal } from '@helpers/HooksNexus'
+import { ModalTypes } from '@components/Helpers/Modals/Modal'
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
 	const { released, actorsCount, actions } = useRecoilValue(LabelsAtom).pages.dashboard.list.card
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-	const { title, year, actors, image } = movie ?? {}
+	const { id, title, year, actors, image } = movie ?? {}
 
 	const router = useRouter()
 	const handleEdit = () => {
 		router.push(`${pages.dashboard.url}${movie.id}`)
 	}
 
+	const handleViewDetails = () => {
+		router.push(`${pages.details.url}/${movie.id}`)
+	}
+
+	const { columns } = useRecoilValue(LabelsAtom).pages.dashboard.table
+
+	const { edit } = useRecoilValue(LabelsAtom).pages
+	const { title: modalTitle, description, confirm, cancel } = columns.actions.delete.modal
+	const { successes } = edit
+
+	const handleDelete = () => {
+		const moviesCookie = getCookie(MoviesCookieName)
+		const moviesArray = moviesCookie ? (JSON.parse(moviesCookie as string) as Movie[]) : []
+		const updatedMoviesArray = moviesArray.filter(elem => elem.id !== id)
+		setCookie(MoviesCookieName, JSON.stringify(updatedMoviesArray))
+		setRecoil(MoviesAtom, updatedMoviesArray)
+		Snackbar.success(successes.deleteSuccess)
+	}
+
+	const props = {
+		type: ModalTypes.delete,
+		labels: {
+			title: modalTitle,
+			description,
+			confirm,
+			cancel,
+		},
+		onConfirm: handleDelete,
+	}
+
+	const getDeleteModal = () => {
+		const DeleteModal = dynamic(() => import('@components/Helpers/Modals/Modal'))
+		getModal()?.showModal(DeleteModal, props)
+	}
+
 	return (
 		<>
 			<Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
 				<MenuItem onClick={handleEdit}>{actions.edit}</MenuItem>
-				<MenuItem>{actions.delete}</MenuItem>
+				<MenuItem onClick={getDeleteModal}>{actions.delete}</MenuItem>
 			</Menu>
-			<Container>
+			<Container onClick={handleViewDetails}>
 				<div className="imageContainer">
 					<img height={200} src={image} alt={title} className="img" />
 				</div>

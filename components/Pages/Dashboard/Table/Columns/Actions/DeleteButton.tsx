@@ -8,6 +8,10 @@ import { useRecoilValue } from 'recoil'
 import LabelsAtom from '@atoms/Labels'
 import { ModalTypes } from '@components/Helpers/Modals/Modal'
 import { Movie } from '@api/Models/Movie/types'
+import { getCookie, setCookie } from 'cookies-next'
+import { MoviesAtom, MoviesCookieName } from '@atoms/Dashboard'
+import { Snackbar } from '@admixltd/admix-component-library/Snackbar'
+import { setRecoil } from '@admixltd/admix-component-library/RecoilNexus'
 
 const DeleteButton: FC<PropsWithChildren<{ id: Movie['id']; closeMenu: () => void }>> = ({
 	id,
@@ -26,9 +30,16 @@ const DeleteButton: FC<PropsWithChildren<{ id: Movie['id']; closeMenu: () => voi
 	const { columns } = useRecoilValue(LabelsAtom).pages.dashboard.table
 
 	const { title, description, confirm, cancel } = columns.actions.delete.modal
-	const { errors, successes } = edit
+	const { successes } = edit
 
-	const handleDelete = async () => {}
+	const handleDelete = () => {
+		const moviesCookie = getCookie(MoviesCookieName)
+		const moviesArray = moviesCookie ? (JSON.parse(moviesCookie as string) as Movie[]) : []
+		const updatedMoviesArray = moviesArray.filter(movie => movie.id !== id)
+		setCookie(MoviesCookieName, JSON.stringify(updatedMoviesArray))
+		setRecoil(MoviesAtom, updatedMoviesArray)
+		Snackbar.success(successes.deleteSuccess)
+	}
 
 	const props = {
 		type: ModalTypes.delete,

@@ -5,10 +5,8 @@ import MainLayout from '@components/Layouts/Main'
 import initialPropsWrapper from '@helpers/initialPropsWrapper'
 import { NextPageWithProps } from '@interfaces/NextPage'
 import { Movie } from '@api/Models/Movie/types'
-import MovieFormActions from '@components/Pages/Dashboard/Edit/FormContent/MovieFormActions'
 import { useRecoilValue } from 'recoil'
 import LabelsAtom from '@atoms/Labels'
-import handleSubmit from '@components/Pages/Dashboard/Edit/editController'
 import { FormFieldDataUpdater, FormFieldErrorsDataUpdater } from '@forms/index'
 import {
 	MovieEditFormLoadingAtom,
@@ -18,10 +16,12 @@ import {
 import { SomeObject } from '@admixltd/admix-component-library'
 import { IFieldValue } from '@forms/generate/types/IFieldValue'
 import { movieToFormData } from '@api/Models/Movie/formDataConverter'
-import dataPrefix from '@components/Pages/Dashboard/Edit/dataPrefix'
-import MovieFormContent from '@components/Pages/Dashboard/Edit/MovieFormContent'
 import { getCookie } from 'cookies-next'
 import pages from '@constants/pages'
+import MovieFormContent from '@components/Pages/Edit/MovieFormContent'
+import handleSubmit from '@components/Pages/Edit/editController'
+import MovieFormActions from '@components/Pages/Edit/FormContent/MovieFormActions'
+import dataPrefix from '@components/Pages/Edit/dataPrefix'
 
 const Page: NextPageWithProps<{
 	movie: Movie
@@ -61,7 +61,7 @@ const Container = styled(BaseContainer)`
 	}
 
 	${({ theme }) => theme.adaptive.md} {
-		padding: 32px 0;
+		padding: 32px 24px;
 	}
 }`
 
@@ -71,6 +71,11 @@ const Form = styled.form`
 	grid-template-rows: auto;
 	width: 45%;
 	min-width: 500px;
+
+	${({ theme }) => theme.adaptive.md} {
+		width: 100%;
+		min-width: 0;
+	}
 `
 
 Page.getInitialProps = context =>

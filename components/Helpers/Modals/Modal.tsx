@@ -19,7 +19,7 @@ export interface ModalProps extends DialogProps {
 	}
 	element?: JSX.Element
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onConfirm: () => Promise<any>
+	onConfirm: () => void
 	onCloseProp?: () => void
 	openProp?: boolean
 }
@@ -57,9 +57,9 @@ const Modal = (props: ModalProps) => {
 						loading={loading}
 						onClick={async () => {
 							setLoading(true)
-							const result = await onConfirm()
+							onConfirm()
 							setLoading(false)
-							if (result) handleClose()
+							handleClose()
 						}}
 						color={type === ModalTypes.delete ? 'error' : 'primary'}
 					>

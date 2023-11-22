@@ -29,7 +29,7 @@ export const createFormDataToMovie: ({
 	movie.title = formData[dataPrefix ? `${dataPrefix}title` : 'title'] as string
 	movie.description = formData[dataPrefix ? `${dataPrefix}description` : 'description'] as string
 	movie.year = formData[dataPrefix ? `${dataPrefix}year` : 'year'] as number
-	movie.actors = formData[dataPrefix ? `${dataPrefix}actors` : 'actors'] as Actor[]
+	movie.actors = (formData[dataPrefix ? `${dataPrefix}actors` : 'actors'] as Actor[]) ?? []
 
 	const placeholderIndex = Math.floor(Math.random() * 3) + 1
 	movie.image = `/MoviePlaceholder${placeholderIndex}.png`
@@ -49,7 +49,7 @@ export const editFormDataToMovie: ({
 	movie.title = formData[dataPrefix ? `${dataPrefix}title` : 'title'] as string
 	movie.description = formData[dataPrefix ? `${dataPrefix}description` : 'description'] as string
 	movie.year = formData[dataPrefix ? `${dataPrefix}year` : 'year'] as number
-	movie.actors = formData[dataPrefix ? `${dataPrefix}actors` : 'actors'] as Actor[]
+	movie.actors = (formData[dataPrefix ? `${dataPrefix}actors` : 'actors'] as Actor[]) ?? []
 	movie.image = formData[dataPrefix ? `${dataPrefix}image` : 'image'] as string
 	return movie
 }
