@@ -3,8 +3,8 @@ import { useTheme } from '@emotion/react'
 import { useRecoilValue } from 'recoil'
 import LabelsAtom from '@atoms/Labels'
 import { Fields } from '@forms/index'
+import dataPrefix from '@components/Pages/Edit/dataPrefix'
 import { MovieColumnDefinition } from './types'
-import dataPrefix from '../../Edit/dataPrefix'
 
 const UpdateMovieFormContent = () => {
 	const labels = useRecoilValue(LabelsAtom).pages.edit

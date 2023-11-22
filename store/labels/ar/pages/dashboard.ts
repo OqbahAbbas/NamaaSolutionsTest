@@ -125,6 +125,7 @@ const dashboard = {
 			actions: {
 				menuTitle: 'العمليات',
 				edit: 'تعديل',
+				viewDetails: 'عرض التفاصيل',
 				delete: {
 					label: 'حذف',
 					modal: {
