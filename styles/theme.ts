@@ -28,6 +28,7 @@ const vulkan = '#363738'
  * Blue
  */
 const blue400 = '#6CAAF8'
+const seaBlue = '#e8efff'
 
 /**
  * Gray
@@ -184,6 +185,7 @@ const mainTheme = {
 		gray800,
 		gray900,
 		blue400,
+		seaBlue,
 		green,
 		white,
 		primary,

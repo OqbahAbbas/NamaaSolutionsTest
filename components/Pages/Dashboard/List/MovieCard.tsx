@@ -8,11 +8,17 @@ import { useRecoilValue } from 'recoil'
 const MovieCard = ({ movie }: { movie: Movie }) => {
 	const { released, actorsCount } = useRecoilValue(LabelsAtom).pages.dashboard.list.card
 	const { title, year, actors } = movie ?? {}
+	const placeholderIndex = Math.floor(Math.random() * 3) + 1
 
 	return (
 		<Container>
 			<div className="imageContainer">
-				<img height={280} src="/MoviePlaceholder.webp" alt={title} className="img" />
+				<img
+					height={200}
+					src={`/MoviePlaceholder${placeholderIndex}.png`}
+					alt={title}
+					className="img"
+				/>
 			</div>
 			<Info>
 				<Tooltip title={title}>
@@ -36,7 +42,11 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
 export const Container = styled(ButtonBase)`
 	display: grid;
 	grid-auto-flow: row;
-	width: 280px;
+	width: 320px;
+
+	${({ theme }) => theme.adaptive.xxs} {
+		width: 200px;
+	}
 
 	background: ${({ theme }) => theme.colors.white};
 	position: relative;
@@ -44,20 +54,28 @@ export const Container = styled(ButtonBase)`
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 
 	.imageContainer {
-		height: 280px;
-		max-width: 280px;
+		height: 200px;
+		max-width: 320px;
 		border-radius: 16px 16px 0 0;
 		overflow: hidden;
 
+		${({ theme }) => theme.adaptive.xxs} {
+			max-width: 200px;
+		}
+
 		.img {
 			object-fit: cover;
-			width: 280px;
+			width: 320px;
 			border-radius: 16px 16px 0 0;
 			transition: all 0.3s ease-in-out 0s;
 			overflow-clip-margin: content-box;
 			overflow: clip;
 			&:hover {
 				transform: scale(1.2);
+			}
+
+			${({ theme }) => theme.adaptive.xxs} {
+				width: 200px;
 			}
 		}
 	}
@@ -70,7 +88,7 @@ export const Info = styled.div`
 	padding: 10px 16px;
 
 	h1 {
-		font-size: 16px;
+		font-size: 20px;
 		font-weight: bold;
 		width: 100%;
 		text-align: center;
@@ -86,15 +104,20 @@ export const Info = styled.div`
 		justify-content: space-between;
 		align-items: center;
 
+		${({ theme }) => theme.adaptive.xxs} {
+			grid-auto-flow: row;
+			justify-content: center;
+		}
+
 		.label {
 			color: ${({ theme }) => theme.colors.primary};
-			font-size: 14;
+			font-size: 14px;
 			font-weight: 500;
 		}
 
 		.value {
 			color: ${({ theme }) => theme.colors.secondary};
-			font-size: 14;
+			font-size: 14px;
 		}
 	}
 `

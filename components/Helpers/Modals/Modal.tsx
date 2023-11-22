@@ -2,7 +2,7 @@ import { Button } from '@admixltd/admix-component-library'
 import styled from '@emotion/styled'
 import { Dialog, DialogProps, paperClasses } from '@mui/material'
 import { useState } from 'react'
-import { ReactComponent as ModalCloseIcon } from '@svg/close.svg'
+import { ReactComponent as ModalCloseIcon } from '@svg/pages/dashboard/close.svg'
 
 export enum ModalTypes {
 	delete = 'delete',
@@ -10,20 +10,24 @@ export enum ModalTypes {
 }
 
 export interface ModalProps extends DialogProps {
-	type: ModalTypes
+	type?: ModalTypes
 	labels: {
 		title: string
 		description: string
 		cancel: string
 		confirm: string
 	}
-	onConfirm: () => Promise<boolean>
+	element?: JSX.Element
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onConfirm: () => Promise<any>
+	onCloseProp?: () => void
+	openProp?: boolean
 }
 
 const Modal = (props: ModalProps) => {
 	const [loading, setLoading] = useState(false)
 
-	const { onClose, type, labels, onConfirm, ...other } = props
+	const { onClose, type, labels, onConfirm, element, ...other } = props
 
 	const handleClose = () => onClose?.({}, 'escapeKeyDown')
 
@@ -35,6 +39,7 @@ const Modal = (props: ModalProps) => {
 			<div className="heading">{labels.title}</div>
 			<div className="body">
 				<p>{labels.description}</p>
+				{element}
 				<ActionsContainer>
 					<Button
 						size="large"

@@ -4,6 +4,9 @@ const ContainerFluid = styled.div`
 	position: relative;
 	padding: 0 6rem;
 
+	@media only screen and (min-width: 0) and (max-width: ${360 - 0.02}px) {
+		padding: 0;
+	}
 	@media only screen and (min-width: 360px) and (max-width: ${425 - 0.02}px) {
 		padding: 0 20px;
 	}
