@@ -1,41 +1,63 @@
 import { Tooltip } from '@admixltd/admix-component-library'
 import styled from '@emotion/styled'
 import { Movie } from '@api/Models/Movie/types'
-import { ButtonBase } from '@mui/material'
+import { ButtonBase, Menu, MenuItem } from '@mui/material'
+import { ReactComponent as MenuIcon } from '@svg/pages/dashboard/menu.svg'
 import LabelsAtom from '@atoms/Labels'
 import { useRecoilValue } from 'recoil'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import pages from '@constants/pages'
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
-	const { released, actorsCount } = useRecoilValue(LabelsAtom).pages.dashboard.list.card
-	const { title, year, actors } = movie ?? {}
-	const placeholderIndex = Math.floor(Math.random() * 3) + 1
+	const { released, actorsCount, actions } = useRecoilValue(LabelsAtom).pages.dashboard.list.card
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+
+	const { title, year, actors, image } = movie ?? {}
+
+	const router = useRouter()
+	const handleEdit = () => {
+		router.push(`${pages.dashboard.url}${movie.id}`)
+	}
 
 	return (
-		<Container>
-			<div className="imageContainer">
-				<img
-					height={200}
-					src={`/MoviePlaceholder${placeholderIndex}.png`}
-					alt={title}
-					className="img"
-				/>
-			</div>
-			<Info>
-				<Tooltip title={title}>
-					<h1>{!title ? '- -' : title}</h1>
-				</Tooltip>
-				<div className="details">
-					<div>
-						<span className="label">{released}</span>
-						<span className="value">{year ?? '- -'}</span>
-					</div>
-					<div>
-						<span className="label">{actorsCount}</span>
-						<span className="value">{Array.isArray(actors) ? actors.length : 0}</span>
-					</div>
+		<>
+			<Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
+				<MenuItem onClick={handleEdit}>{actions.edit}</MenuItem>
+				<MenuItem>{actions.delete}</MenuItem>
+			</Menu>
+			<Container>
+				<div className="imageContainer">
+					<img height={200} src={image} alt={title} className="img" />
 				</div>
-			</Info>
-		</Container>
+				<div
+					className="actions"
+					onClick={e => {
+						e.stopPropagation()
+						setAnchorEl(e.currentTarget)
+					}}
+				>
+					<MenuIcon />
+				</div>
+				<Info>
+					<Tooltip title={title}>
+						<h1>{!title ? '- -' : title}</h1>
+					</Tooltip>
+					<div className="details">
+						<div>
+							<span className="label">{released}</span>
+							<span className="value">{year ?? '- -'}</span>
+						</div>
+						<div>
+							<span className="label">{actorsCount}</span>
+							<span className="value">
+								{Array.isArray(actors) ? actors.length : 0}
+							</span>
+						</div>
+					</div>
+				</Info>
+			</Container>
+		</>
 	)
 }
 
@@ -43,6 +65,7 @@ export const Container = styled(ButtonBase)`
 	display: grid;
 	grid-auto-flow: row;
 	width: 320px;
+	position: relative;
 
 	${({ theme }) => theme.adaptive.xxs} {
 		width: 200px;
@@ -76,6 +99,26 @@ export const Container = styled(ButtonBase)`
 
 			${({ theme }) => theme.adaptive.xxs} {
 				width: 200px;
+			}
+		}
+	}
+
+	.actions {
+		position: absolute;
+		height: 30px;
+		top: 10px;
+		right: 10px;
+		padding: 2px;
+
+		svg {
+			width: 30px;
+			height: 30px;
+			transform: rotate(90deg) !important;
+			[fill] {
+				fill: ${({ theme }) => theme.colors.primary};
+			}
+			[stroke] {
+				stroke: ${({ theme }) => theme.colors.primary};
 			}
 		}
 	}

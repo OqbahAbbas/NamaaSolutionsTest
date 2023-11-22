@@ -7,6 +7,7 @@ export enum ActorRoles {
 }
 
 export interface Actor {
+	id: string
 	name: string
 	age: number
 	joinDate: string
@@ -14,11 +15,12 @@ export interface Actor {
 }
 
 export interface Movie {
-	id?: number
+	id: string
 	title: string
 	description: string
 	year: number
 	actors: Actor[]
+	image: string
 }
 
 export interface SortingModel {

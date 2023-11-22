@@ -15,9 +15,9 @@ const pages = {
 			url: url('/'),
 		} as Page),
 	},
-	flights: {
+	createMovie: {
 		...({
-			url: url('/flights'),
+			url: url('/create'),
 		} as Page),
 	},
 }

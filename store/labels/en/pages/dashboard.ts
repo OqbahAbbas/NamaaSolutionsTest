@@ -100,10 +100,15 @@ const dashboard = {
 			},
 		],
 	},
+	addMovie: 'Add Movie',
 	list: {
 		card: {
 			released: 'Released: ',
 			actorsCount: 'Actors count: ',
+			actions: {
+				edit: 'Edit',
+				delete: 'Delete',
+			},
 		},
 	},
 	table: {

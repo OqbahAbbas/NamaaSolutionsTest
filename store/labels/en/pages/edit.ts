@@ -10,7 +10,7 @@ export default {
 		deleteSuccess: 'Movie deleted successfully',
 	},
 	errors: {
-		createFailure: 'An error happened while trying to create a movie, please try again later',
+		createFailure: 'The movie already exists, please try another title',
 		updateFailure: 'An error happened while trying to update the movie, please try again later',
 		deleteFailure: 'An error happened while trying to delete the movie, please try again later',
 	},

@@ -6,7 +6,13 @@ import initialPropsWrapper from '@helpers/initialPropsWrapper'
 import { NextPageWithProps } from '@interfaces/NextPage'
 import MovieCard from '@components/Pages/Dashboard/List/MovieCard'
 import { useRecoilValue } from 'recoil'
-import { ActiveMoviesAtom, MoviesAtom, SortMoviesAtom, ViewMoviesAtom } from '@atoms/Dashboard'
+import {
+	ActiveMoviesAtom,
+	MoviesAtom,
+	MoviesCookieName,
+	SortMoviesAtom,
+	ViewMoviesAtom,
+} from '@atoms/Dashboard'
 import Filters from '@components/Pages/Dashboard/Filters'
 import { useEffect } from 'react'
 import LabelsAtom from '@atoms/Labels'
@@ -14,17 +20,20 @@ import MovieSort from '@components/Pages/Dashboard/MovieSort'
 import sortMovies from '@components/Pages/Dashboard/MovieSort/sort'
 import MovieView from '@components/Pages/Dashboard/view'
 import { useRouter } from 'next/router'
-import { flexGap } from '@admixltd/admix-component-library'
+import { Button, flexGap } from '@admixltd/admix-component-library'
 import ColumnSelector from '@components/Pages/Dashboard/Table/ColumnSelector'
 import Table from '@components/Pages/Dashboard/Table/Table'
+import { getCookie } from 'cookies-next'
+import pages from '@constants/pages'
 
 const Page: NextPageWithProps = () => {
-	const { results } = useRecoilValue(LabelsAtom).pages.dashboard
+	const { results, addMovie } = useRecoilValue(LabelsAtom).pages.dashboard
 	const movies = useRecoilValue(MoviesAtom)
 	const sort = useRecoilValue(SortMoviesAtom)
 	const view = useRecoilValue(ViewMoviesAtom)
 	const activeMovies = useRecoilValue(ActiveMoviesAtom)
-	const { locale } = useRouter() ?? {}
+	const router = useRouter()
+	const { locale } = router ?? {}
 
 	useEffect(() => {
 		sortMovies([...movies])
@@ -33,6 +42,8 @@ const Page: NextPageWithProps = () => {
 	useEffect(() => {
 		sortMovies()
 	}, [sort])
+
+	const addNewMovie = () => router.push(pages.createMovie.url)
 
 	return (
 		<>
@@ -47,12 +58,15 @@ const Page: NextPageWithProps = () => {
 					<div className="actions">
 						<MovieSort />
 						<MovieView />
+						<Button variant="contained" round onClick={addNewMovie}>
+							{addMovie}
+						</Button>
 					</div>
 				</div>
 				{view.val === 'list' && (
 					<div className="cardsContainer">
 						{activeMovies.map(movie => (
-							<MovieCard movie={movie} key={movie.title} />
+							<MovieCard movie={movie} key={movie.id} />
 						))}
 					</div>
 				)}
@@ -191,13 +205,21 @@ const TableActions = styled.div`
 
 Page.getInitialProps = context =>
 	initialPropsWrapper(
-		async () => ({
-			props: {},
-		}),
+		async ({ req }) => {
+			const moviesCookie = getCookie(MoviesCookieName, { req }) as string
+			const movies = JSON.parse(moviesCookie)
+			return {
+				movies: movies ?? [],
+			}
+		},
 		Page,
 		context
 	)
 
 Page.getLayout = page => <MainLayout>{page}</MainLayout>
+
+Page.recoilSetter = ({ set }, { movies }) => {
+	set(MoviesAtom, movies)
+}
 
 export default Page

@@ -100,10 +100,15 @@ const dashboard = {
 			},
 		],
 	},
+	addMovie: 'إضافة فيلم',
 	list: {
 		card: {
 			released: 'سنة الإصدار: : ',
 			actorsCount: 'عدد الممثلين: ',
+			actions: {
+				edit: 'تعديل',
+				delete: 'حذف',
+			},
 		},
 	},
 	table: {
