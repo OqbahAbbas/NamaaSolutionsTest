@@ -11,7 +11,6 @@ import { ITextAreaField } from '@forms/components/TextArea/ITextAreaField'
 import { IAutocompleteMultipleAsyncField } from '@forms/components/Autocomplete/Multiple/Async/IAutocompleteMultipleAsyncField'
 import { IAutocompleteSingleAsyncField } from '@forms/components/Autocomplete/Single/Async/IAutocompleteSingleAsyncField'
 import { ISlider } from '@forms/components/Slider/ISlider'
-import { IRadioGroup } from '@forms/components/RadioButton/IRadioGroup'
 
 export type IFieldVariant =
 	| IRegularInputField
@@ -26,4 +25,3 @@ export type IFieldVariant =
 	| IAutocompleteMultipleAsyncField
 	| IAutocompleteSingleAsyncField
 	| ISlider
-	| IRadioGroup

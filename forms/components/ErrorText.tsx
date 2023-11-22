@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { fadeInDown } from '@admixltd/admix-component-library'
+import { PropsWithTheme } from '@admixltd/admix-component-library/styles/theme'
 
 const ErrorText = styled.div`
 	margin-top: 5px;
@@ -12,7 +13,7 @@ const ErrorText = styled.div`
 	line-height: 1.3;
 	text-align: left;
 
-	${props => fadeInDown(props)};
+	${props => fadeInDown(props as unknown as PropsWithTheme)};
 	color: ${({ theme }) => theme.colors.error};
 `
 export default ErrorText
