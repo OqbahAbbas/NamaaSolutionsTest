@@ -25,9 +25,10 @@ import ColumnSelector from '@components/Pages/Dashboard/Table/ColumnSelector'
 import Table from '@components/Pages/Dashboard/Table/Table'
 import { getCookie } from 'cookies-next'
 import pages from '@constants/pages'
+import NoData from '@components/Pages/Dashboard/NoData'
 
 const Page: NextPageWithProps = () => {
-	const { results, addMovie } = useRecoilValue(LabelsAtom).pages.dashboard
+	const { results, addMovie, noDataToShow } = useRecoilValue(LabelsAtom).pages.dashboard
 	const movies = useRecoilValue(MoviesAtom)
 	const sort = useRecoilValue(SortMoviesAtom)
 	const view = useRecoilValue(ViewMoviesAtom)
@@ -63,14 +64,17 @@ const Page: NextPageWithProps = () => {
 						</Button>
 					</div>
 				</div>
-				{view.val === 'list' && (
+				{movies.length > 0 && activeMovies.length !== 0 && view.val === 'list' && (
 					<div className="cardsContainer">
 						{activeMovies.map(movie => (
 							<MovieCard movie={movie} key={movie.id} />
 						))}
 					</div>
 				)}
-				{view.val === 'table' && (
+				{movies.length > 0 && activeMovies.length === 0 && view.val === 'list' && (
+					<div className="noData">{noDataToShow}</div>
+				)}
+				{movies.length > 0 && view.val === 'table' && (
 					<TableContainer locale={locale ?? 'en'}>
 						<TableActions>
 							<div />
@@ -82,6 +86,7 @@ const Page: NextPageWithProps = () => {
 						<Table />
 					</TableContainer>
 				)}
+				{movies.length === 0 && <NoData />}
 			</Container>
 		</>
 	)
@@ -152,6 +157,15 @@ const Container = styled(BaseContainer)`
 		${({ theme }) => theme.adaptive.md} {
 			padding: 0 24px;
 		}
+	}
+
+	.noData {
+		display: grid;
+		width: 100%;
+		align-text: center;
+		justify-content: center;
+		gap: 8px;
+		color: ${({ theme }) => theme.colors.secondary};
 	}
 `
 

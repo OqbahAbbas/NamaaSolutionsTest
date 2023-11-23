@@ -68,13 +68,13 @@ export const Container = styled.div`
 			gap: 8px;
 
 			.title {
-				font-size: 32px;
+				font-size: 24px;
 				font-weight: bold;
 				color: ${({ theme }) => theme.colors.primary};
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
-				max-width: 200px;
+				max-width: 100%;
 			}
 
 			.year {

@@ -147,6 +147,11 @@ const dashboard = {
 			},
 		},
 	},
+	noData: {
+		text: 'لا يوجد معطيات للعرض، هل تريد ',
+		buttonText: 'إضافة البعض',
+	},
+	noDataToShow: 'لا يوجد معطيات للعرض',
 }
 
 export default dashboard

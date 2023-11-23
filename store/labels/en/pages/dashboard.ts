@@ -147,6 +147,11 @@ const dashboard = {
 			},
 		},
 	},
+	noData: {
+		text: 'You have no data, do you want to ',
+		buttonText: 'Add Some',
+	},
+	noDataToShow: 'You have no data to show',
 }
 
 export default dashboard
