@@ -4,16 +4,17 @@ import BaseContainer from '@components/Layouts/Main/Container'
 import MainLayout from '@components/Layouts/Main'
 import initialPropsWrapper from '@helpers/initialPropsWrapper'
 import { NextPageWithProps } from '@interfaces/NextPage'
-import { Movie } from '@api/Models/Movie/types'
-import { useRecoilValue } from 'recoil'
+import { Actor, Movie } from '@api/Models/Movie/types'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import LabelsAtom from '@atoms/Labels'
 import { FormFieldDataUpdater, FormFieldErrorsDataUpdater } from '@forms/index'
 import {
+	EditSelectedMovieAtom,
 	MovieEditFormLoadingAtom,
 	MovieEditFormUpdatedAtom,
 	MoviesCookieName,
 } from '@atoms/Dashboard'
-import { SomeObject } from '@admixltd/admix-component-library'
+import { Button, SomeObject, flexGap } from '@admixltd/admix-component-library'
 import { IFieldValue } from '@forms/generate/types/IFieldValue'
 import { movieToFormData } from '@api/Models/Movie/formDataConverter'
 import { getCookie } from 'cookies-next'
@@ -22,13 +23,40 @@ import MovieFormContent from '@components/Pages/Edit/MovieFormContent'
 import handleSubmit from '@components/Pages/Edit/editController'
 import MovieFormActions from '@components/Pages/Edit/FormContent/MovieFormActions'
 import dataPrefix from '@components/Pages/Edit/dataPrefix'
+import { useRouter } from 'next/router'
+import Table from '@components/Pages/Edit/FormContent/Table/Table'
+import generateId from '@utils/basic/generateId'
 
 const Page: NextPageWithProps<{
 	movie: Movie
 	mode?: 'create' | 'edit'
 }> = ({ movie, mode }) => {
-	const { createHeader, editHeader } = useRecoilValue(LabelsAtom).pages.edit
+	const { createHeader, editHeader, table } = useRecoilValue(LabelsAtom).pages.edit
 	const isCreate = mode === 'create'
+	const router = useRouter()
+	const { locale } = router ?? {}
+	const [selectedMovie, setSelectedMovie] = useRecoilState(EditSelectedMovieAtom)
+	const [formData, setFormData] = useRecoilState(FormFieldDataUpdater)
+
+	const addActor = () => {
+		const newActor = {
+			id: generateId(),
+		} as Actor
+		setSelectedMovie({
+			...selectedMovie,
+			actors:
+				Object.keys(selectedMovie).length > 0
+					? [...selectedMovie.actors, newActor]
+					: [newActor],
+		})
+		setFormData({
+			...formData,
+			[`${dataPrefix}${newActor.id}-name`]: undefined,
+			[`${dataPrefix}${newActor.id}-age`]: undefined,
+			[`${dataPrefix}${newActor.id}-role`]: undefined,
+			[`${dataPrefix}${newActor.id}-joinDate`]: undefined,
+		})
+	}
 
 	return (
 		<>
@@ -42,6 +70,21 @@ const Page: NextPageWithProps<{
 					}}
 				>
 					<MovieFormContent />
+					<TableContainer locale={locale ?? 'en'}>
+						<TableActions>
+							<div>
+								<Button
+									color="primary"
+									round
+									variant="contained"
+									onClick={addActor}
+								>
+									{table.addActor}
+								</Button>
+							</div>
+						</TableActions>
+						<Table />
+					</TableContainer>
 					<MovieFormActions />
 				</Form>
 			</Container>
@@ -69,12 +112,54 @@ const Form = styled.form`
 	display: grid;
 	grid-auto-flow: row;
 	grid-template-rows: auto;
-	width: 45%;
+	width: 100%;
 	min-width: 500px;
 
 	${({ theme }) => theme.adaptive.md} {
 		width: 100%;
 		min-width: 0;
+	}
+`
+
+const TableContainer = styled.div<{
+	locale: string
+}>`
+	border-radius: 8px;
+	padding: 24px;
+	background-color: ${({ theme }) => theme.colors.white};
+	margin: 8px 0 24px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	overflow-x: scroll;
+	box-shadow: 10px 10px 10px #c6cddd;
+	box-shadow: inset 0px -1px 0px ${({ theme }) => theme.colors.gray200};
+	.MuiDataGrid-root {
+		width: 100%;
+		direction: ${({ locale }) => (locale === 'ar' ? 'rtl' : 'ltr')};
+	}
+	.MuiDataGrid-columnHeadersInner {
+		direction: ltr;
+	}
+	.MuiDataGrid-virtualScrollerContent {
+		direction: ltr;
+	}
+`
+
+const TableActions = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 66px;
+	margin-right: -10px;
+	margin-left: -10px;
+	padding-left: 10px;
+
+	${flexGap(8)};
+
+	> div {
+		${flexGap(16)};
 	}
 `
 
@@ -93,7 +178,7 @@ Page.getInitialProps = context =>
 			const movies = moviesCookie ? JSON.parse(moviesCookie as string) : []
 			const movie = movies.find((item: Movie) => item.id === id)
 
-			if (!movie)
+			if (id !== 'create' && !movie)
 				return {
 					redirect: pages.dashboard.url,
 				}
@@ -116,6 +201,7 @@ Page.recoilSetter = ({ set, reset }, { movie }) => {
 		FormData[`${dataPrefix}${key}`] = mappedData[key as keyof typeof mappedData] as IFieldValue
 	})
 	set(FormFieldDataUpdater, FormData)
+	set(EditSelectedMovieAtom, movie)
 }
 
 export default Page

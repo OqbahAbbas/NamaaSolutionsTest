@@ -1,6 +1,4 @@
-import { Movie, SortingModel, ViewModel } from '@api/Models/Movie/types'
-import { getRouter } from '@helpers/RouterNexus'
-import getLabels from '@helpers/getLabels'
+import { Actor, Movie, SortingModel, ViewModel } from '@api/Models/Movie/types'
 import { atom } from 'recoil'
 
 const prefix = 'Dashboard'
@@ -22,27 +20,21 @@ export const ActiveMoviesAtom = atom<Movie[]>({
 
 export const SortMoviesAtom = atom<SortingModel>({
 	key: `${prefix}sortMovies`,
-	default:
-		getRouter().locale === 'ar'
-			? {
-					title: 'العنوان (تصاعدياً)',
-					val: {
-						key: 'title',
-						order: 'ascending',
-					},
-			  }
-			: {
-					title: 'Title (Ascending)',
-					val: {
-						key: 'title',
-						order: 'ascending',
-					},
-			  },
+	default: {
+		title: 'Title (Ascending)',
+		val: {
+			key: 'title',
+			order: 'ascending',
+		},
+	},
 })
 
 export const ViewMoviesAtom = atom<ViewModel>({
 	key: `${prefix}viewMovies`,
-	default: getLabels().pages.dashboard.view.options[0],
+	default: {
+		title: 'List',
+		val: 'list',
+	},
 })
 
 export const MoviesCookieName = `${prefix}Movies`
@@ -62,4 +54,14 @@ export const MovieEditFormUpdatedAtom = atom({
 export const MovieEditFormLoadingAtom = atom({
 	key: `${prefix}movieEditFormLoading`,
 	default: false,
+})
+
+export const EditSelectedMovieAtom = atom<Movie>({
+	key: `${prefix}editSelectedMovie`,
+	default: {} as Movie,
+})
+
+export const EditActorsTableDataAtom = atom<Actor[]>({
+	key: `${prefix}editActorsTableData`,
+	default: [],
 })

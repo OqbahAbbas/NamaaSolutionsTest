@@ -20,7 +20,7 @@ const MoviesFilterCancel = () => {
 
 	return useMemo(
 		() => (
-			<Button round color="gray500" size="medium" variant="contained" onClick={handleCancel}>
+			<Button round color="secondary" size="medium" variant="text" onClick={handleCancel}>
 				{clear}
 			</Button>
 		),

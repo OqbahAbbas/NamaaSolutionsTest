@@ -19,4 +19,14 @@ export default {
 		description: 'الوصف',
 		year: 'سنة الإصدار',
 	},
+	table: {
+		addActor: 'إضافة ممثل',
+		columns: {
+			id: 'المعرف',
+			name: 'الاسم',
+			age: 'العمر',
+			joinDate: 'تاريخ الانضمام',
+			role: 'الدور',
+		},
+	},
 }

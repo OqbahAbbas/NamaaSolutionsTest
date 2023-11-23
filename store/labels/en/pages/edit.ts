@@ -19,4 +19,14 @@ export default {
 		description: 'Description',
 		year: 'Release Year',
 	},
+	table: {
+		addActor: 'Add Actor',
+		columns: {
+			id: 'Id',
+			name: 'Name',
+			age: 'Age',
+			joinDate: 'Join Date',
+			role: 'Role',
+		},
+	},
 }

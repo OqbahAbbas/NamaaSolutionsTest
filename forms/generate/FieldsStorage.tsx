@@ -13,6 +13,7 @@ import TextArea from '@forms/components/TextArea/TextArea'
 import AutocompleteMultipleAsync from '@forms/components/Autocomplete/Multiple/Async/AutocompleteMultipleAsync'
 import AutocompleteSingleAsync from '@forms/components/Autocomplete/Single/Async/AutocompleteSingleAsync'
 import Slider from '@forms/components/Slider/Slider'
+import DatePicker from '@forms/components/DatePicker/DatePicker'
 
 const FieldsStorage: SomeObject<ComponentType<IField>> = {
 	PasswordInput,
@@ -27,6 +28,7 @@ const FieldsStorage: SomeObject<ComponentType<IField>> = {
 	AutocompleteMultipleAsync,
 	AutocompleteSingleAsync,
 	Slider,
+	DatePicker,
 }
 
 export default FieldsStorage
