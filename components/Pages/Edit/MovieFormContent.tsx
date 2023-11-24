@@ -38,6 +38,7 @@ const UpdateMovieFormContent = () => {
 							requiredLabel: true,
 							thousandSeparator: '',
 							className: 'yearField',
+							max: 2023,
 						},
 					},
 					{

@@ -6,10 +6,23 @@ import { IFieldValue } from '@forms/generate/types/IFieldValue'
 import { getRecoil, setRecoil } from '@admixltd/admix-component-library/RecoilNexus'
 import { EditSelectedMovieAtom } from '@atoms/Dashboard'
 import { debounce } from '@mui/material'
+import { Snackbar } from '@admixltd/admix-component-library/Snackbar'
+import getLabels from '@helpers/getLabels'
 import { EditActorColumnDefinition } from './types'
 
 const removeActor = (id: string) => {
 	const movieFormData = getDataByFieldsList({ dataPrefix })
+	const { noActorRemove } = getLabels().pages.edit.table
+
+	if (
+		!movieFormData[`${id}-name`] ||
+		!movieFormData[`${id}-role`] ||
+		!movieFormData[`${id}-age`] ||
+		!movieFormData[`${id}-joinDate`]
+	) {
+		Snackbar.error(noActorRemove)
+		return
+	}
 
 	const FormData: SomeObject<IFieldValue> = {}
 	Object.keys(movieFormData).forEach(key => {

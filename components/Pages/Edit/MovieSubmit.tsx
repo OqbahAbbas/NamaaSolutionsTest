@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { Button, useFirstRender } from '@admixltd/admix-component-library'
-import { FormFieldDataUpdater } from '@forms'
+import { FormFieldDataUpdater, FormFieldErrorsDataUpdater } from '@forms'
 import { useEffect, useMemo } from 'react'
 import LabelsAtom from '@atoms/Labels'
 import { MovieEditFormLoadingAtom, MovieEditFormUpdatedAtom } from '@atoms/Dashboard'
@@ -8,6 +8,7 @@ import { MovieEditFormLoadingAtom, MovieEditFormUpdatedAtom } from '@atoms/Dashb
 const AttributeSubmit = () => {
 	const firstRender = useFirstRender()
 	const [formUpdated, setFormUpdated] = useRecoilState(MovieEditFormUpdatedAtom)
+	const errors = useRecoilValue(FormFieldErrorsDataUpdater)
 	const { save } = useRecoilValue(LabelsAtom).pages.edit.actions
 	const loading = useRecoilValue(MovieEditFormLoadingAtom)
 
@@ -19,13 +20,22 @@ const AttributeSubmit = () => {
 		setFormUpdated(true)
 	}, [JSON.stringify(formData)])
 
+	const disabled = !formUpdated || loading || Object.values(errors).length !== 0
+
 	return useMemo(
 		() => (
-			<Button round type="submit" size="large" variant="contained" loading={loading}>
+			<Button
+				round
+				type="submit"
+				size="large"
+				variant="contained"
+				loading={loading}
+				disabled={disabled}
+			>
 				{save}
 			</Button>
 		),
-		[loading, save]
+		[loading, disabled, save]
 	)
 }
 

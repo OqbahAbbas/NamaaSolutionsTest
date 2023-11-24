@@ -11,7 +11,6 @@ export const movieToFormData: (movie: Movie) => SomeObject = movie => {
 	formData.title = title ?? ''
 	formData.year = year ?? null
 	formData.description = description ?? ''
-	formData.actors = actors
 	formData.image = image
 
 	if (actors) {
@@ -122,5 +121,6 @@ export const editFormDataToMovie: ({
 	})
 
 	movie.actors = actors
+
 	return movie
 }

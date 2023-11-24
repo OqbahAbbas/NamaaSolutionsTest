@@ -16,16 +16,19 @@ const ActorAgeField = ({ id }: { id: string }) => {
 			{
 				sections: [
 					{
-						type: 'RegularInput',
+						type: 'NumericInput',
 						name: `${id}-age`,
 						validation: [
 							'required',
+							'digitsOnly',
 							{ name: 'minValue', options: { value: 1 } },
 							{ name: 'maxValue', options: { value: 100 } },
 						],
 						props: {
 							placeholder: age,
 							requiredLabel: true,
+							max: 100,
+							className: 'ageInput',
 						},
 					},
 				],
@@ -45,6 +48,11 @@ const ActorAgeField = ({ id }: { id: string }) => {
 
 const Container = styled.div`
 	margin: 10px 0;
+	.ageInput {
+		input {
+			direction: ltr !important;
+		}
+	}
 `
 
 export default (labels: Labels[keyof Labels]['pages']['edit']['table']['columns']) =>

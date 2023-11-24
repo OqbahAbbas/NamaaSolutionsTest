@@ -5,6 +5,7 @@ import LabelsAtom from '@atoms/Labels'
 import { Fields } from '@forms/index'
 import dataPrefix from '@components/Pages/Edit/dataPrefix'
 import styled from '@emotion/styled'
+import { DateObject } from 'react-multi-date-picker'
 import { EditActorColumnDefinition } from './types'
 
 const ActorDateField = ({ id }: { id: string }) => {
@@ -21,6 +22,7 @@ const ActorDateField = ({ id }: { id: string }) => {
 						validation: ['required'],
 						props: {
 							placeholder: joinDate,
+							maxDate: new DateObject(),
 						},
 					},
 				],

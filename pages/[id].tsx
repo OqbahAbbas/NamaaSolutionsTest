@@ -27,12 +27,13 @@ import { useRouter } from 'next/router'
 import Table from '@components/Pages/Edit/FormContent/Table/Table'
 import generateId from '@utils/basic/generateId'
 import { debounce } from '@mui/material'
+import { Snackbar } from '@admixltd/admix-component-library/Snackbar'
 
 const Page: NextPageWithProps<{
 	movie: Movie
 	mode?: 'create' | 'edit'
 }> = ({ movie, mode }) => {
-	const { createHeader, editHeader, table } = useRecoilValue(LabelsAtom).pages.edit
+	const { createHeader, editHeader, table, enouphActors } = useRecoilValue(LabelsAtom).pages.edit
 	const isCreate = mode === 'create'
 	const router = useRouter()
 	const { locale } = router ?? {}
@@ -40,6 +41,10 @@ const Page: NextPageWithProps<{
 	const [formData, setFormData] = useRecoilState(FormFieldDataUpdater)
 
 	const addActor = () => {
+		if (Array.isArray(selectedMovie.actors) && selectedMovie.actors.length >= 3) {
+			Snackbar.error(enouphActors)
+			return
+		}
 		const newActor = {
 			id: generateId(),
 		} as Actor

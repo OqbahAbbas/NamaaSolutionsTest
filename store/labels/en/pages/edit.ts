@@ -28,5 +28,8 @@ export default {
 			joinDate: 'Join Date',
 			role: 'Role',
 		},
+		noActorRemove: 'You can not remove an actor with incompleted data',
 	},
+	enouphActors: '3 Actors are more than enough for a fake movie',
+	noActorsNoMovie: 'You should add some actors',
 }

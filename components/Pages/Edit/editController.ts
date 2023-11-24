@@ -9,6 +9,8 @@ import { Movie } from '@api/Models/Movie/types'
 import { Snackbar } from '@admixltd/admix-component-library/Snackbar'
 import { getRouter } from '@helpers/RouterNexus'
 import pages from '@constants/pages'
+import { SomeObject } from '@admixltd/admix-component-library'
+import { IFieldValue } from '@forms/generate/types/IFieldValue'
 import dataPrefix from './dataPrefix'
 
 const handleSubmit = async (isCreate: boolean) => {
@@ -16,14 +18,6 @@ const handleSubmit = async (isCreate: boolean) => {
 	 * Get data from state
 	 */
 	const formData = getDataByFieldsList({ dataPrefix })
-	/**
-	 * validate form
-	 */
-	const formValid = await formValidation({
-		data: formData,
-		dataPrefix,
-	})
-	if (!formValid) return
 
 	/**
 	 * Convert data to movie object
@@ -31,6 +25,20 @@ const handleSubmit = async (isCreate: boolean) => {
 	const movieData = isCreate
 		? createFormDataToMovie({ formData })
 		: editFormDataToMovie({ formData })
+
+	if (!movieData.actors?.length) {
+		Snackbar.error(getLabels().pages.edit.noActorsNoMovie)
+		return
+	}
+
+	/**
+	 * validate form
+	 */
+	const formValid = await formValidation({
+		data: movieData as SomeObject<IFieldValue>,
+		dataPrefix,
+	})
+	if (!formValid) return
 
 	const { errors, successes } = getLabels().pages.edit
 
