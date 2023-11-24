@@ -15,6 +15,16 @@ The Namaa Solution Test Movie Platform is live and accessible online! You can ex
 - **Language Support:** Available in both English and Arabic languages.
 - **Responsive Design:** Provides an optimal viewing experience across all screen sizes.
 
+### Tech Specifications
+
+The Namaa Solution Test Movie Platform is built using the following technologies:
+
+- **Next.js Platform:** The solution is developed using Next.js, a React framework known for its server-side rendering and efficient performance.
+- **Material-UI:** Material-UI serves as the primary React component library, providing a consistent and customizable UI experience.
+- **Recoil for State Management:** Recoil, a state management library by Facebook, is utilized for efficient and flexible state management within the application.
+- **Form Building Tool:** Additionally, the solution integrates a form building tool developed by the Landvault team, enhancing the platform's form creation capabilities.
+
+
 #### Running Locally:
 Ensure you have the following installed:
 1. **Node.js:** Version 18 or higher ([Download Node.js](https://nodejs.org/en/download))
