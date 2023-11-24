@@ -39,6 +39,7 @@ export const Container = styled.div`
 	.imageContainer {
 		height: 300px;
 		max-width: 200px;
+		width: 200px;
 		border-radius: 16px;
 		overflow: hidden;
 
@@ -87,7 +88,11 @@ export const Container = styled.div`
 			max-height: 250px;
 			font-size: 14px;
 			color: ${({ theme }) => theme.colors.secondary};
+			overflow-x: hidden;
 			overflow-y: scroll;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			max-width: 100%;
 		}
 	}
 `

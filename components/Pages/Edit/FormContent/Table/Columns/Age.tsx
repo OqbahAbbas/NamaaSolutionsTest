@@ -18,7 +18,11 @@ const ActorAgeField = ({ id }: { id: string }) => {
 					{
 						type: 'RegularInput',
 						name: `${id}-age`,
-						validation: ['required', 'positiveDigitsOnly'],
+						validation: [
+							'required',
+							{ name: 'minValue', options: { value: 1 } },
+							{ name: 'maxValue', options: { value: 100 } },
+						],
 						props: {
 							placeholder: age,
 							requiredLabel: true,

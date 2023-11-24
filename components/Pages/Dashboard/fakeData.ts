@@ -1,4 +1,4 @@
-import { ActorRoles, Movie } from '@api/Models/Movie/types'
+import { Movie } from '@api/Models/Movie/types'
 import generateId from '@utils/basic/generateId'
 
 export default [
@@ -15,14 +15,14 @@ export default [
 				name: 'Tim Robbins',
 				age: 69,
 				joinDate: '1992/01/01',
-				role: ActorRoles.recurringCharacter,
+				role: 'recurringCharacter',
 			},
 			{
 				id: generateId(),
 				name: 'Morgan Freeman',
 				age: 82,
 				joinDate: '1992/01/01',
-				role: ActorRoles.recurringCharacter,
+				role: 'recurringCharacter',
 			},
 		],
 	},
@@ -39,7 +39,7 @@ export default [
 				name: 'Marlon Brando',
 				age: 85,
 				joinDate: '1970/01/01',
-				role: ActorRoles.recurringCharacter,
+				role: 'recurringCharacter',
 			},
 		],
 	},
@@ -56,21 +56,21 @@ export default [
 				name: 'Morgan Freeman',
 				age: 82,
 				joinDate: '2004/01/01',
-				role: ActorRoles.sideCharacter,
+				role: 'sideCharacter',
 			},
 			{
 				id: generateId(),
 				name: 'Chin Han',
 				age: 50,
 				joinDate: '2004/04/01',
-				role: ActorRoles.background,
+				role: 'background',
 			},
 			{
 				id: generateId(),
 				name: 'Ritchie Coster',
 				age: 55,
 				joinDate: '2004/04/01',
-				role: ActorRoles.cameo,
+				role: 'cameo',
 			},
 		],
 	},
@@ -87,22 +87,22 @@ export default [
 				name: 'Brad Pitt',
 				age: 60,
 				joinDate: '1997/12/05',
-				role: ActorRoles.seriesRegular,
+				role: 'seriesRegular',
 			},
 			{
 				id: generateId(),
 				name: 'Chin Han',
 				age: 50,
 				joinDate: '2004/04/01',
-				role: ActorRoles.background,
+				role: 'background',
 			},
 			{
 				id: generateId(),
 				name: 'Ritchie Coster',
 				age: 55,
 				joinDate: '2004/04/01',
-				role: ActorRoles.cameo,
+				role: 'cameo',
 			},
 		],
 	},
-] as Movie[]
+] as unknown as Movie[]

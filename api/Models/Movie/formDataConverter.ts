@@ -18,7 +18,10 @@ export const movieToFormData: (movie: Movie) => SomeObject = movie => {
 		actors.forEach(actor => {
 			formData[`${actor.id}-name`] = actor.name
 			formData[`${actor.id}-age`] = actor.age
-			formData[`${actor.id}-role`] = actor.role
+			formData[`${actor.id}-role`] = {
+				title: ActorRoles[actor.role as unknown as keyof typeof ActorRoles],
+				val: actor.role,
+			}
 			formData[`${actor.id}-joinDate`] = actor.joinDate
 		})
 	}
@@ -101,7 +104,6 @@ export const editFormDataToMovie: ({
 			ids.push(actorId)
 		}
 	})
-
 	ids.forEach(id => {
 		const role = formData[dataPrefix ? `${dataPrefix}${id}-role` : `${id}-role`] as {
 			title: string

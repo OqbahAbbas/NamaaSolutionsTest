@@ -7,6 +7,7 @@ import { NoRowsResults, Table as ACLTable } from '@admixltd/admix-component-libr
 import NoSearchResults from '@components/Helpers/Table/NoSearchResults'
 import { EditActorsTableDataAtom, EditSelectedMovieAtom } from '@atoms/Dashboard'
 import { useEffect } from 'react'
+import { ActorRoles } from '@api/Models/Movie/types'
 import columns from './Columns'
 
 const Table = () => {
@@ -25,9 +26,13 @@ const Table = () => {
 	 * Rows data mapping
 	 */
 	const rows: GridRowsProp = tableData
-		? tableData?.map(({ id, name, ...other }) => ({
+		? tableData?.map(({ id, name, role, ...other }) => ({
 				id,
 				[`${id}-name`]: name,
+				role: {
+					title: ActorRoles[role as unknown as keyof typeof ActorRoles],
+					val: role,
+				},
 				...other,
 		  }))
 		: []

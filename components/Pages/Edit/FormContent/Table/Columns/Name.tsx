@@ -18,7 +18,7 @@ const ActorNameField = ({ id }: { id: string }) => {
 					{
 						type: 'RegularInput',
 						name: `${id}-name`,
-						validation: ['required'],
+						validation: ['required', { name: 'maxLength', options: { value: 20 } }],
 						props: {
 							placeholder: name,
 							requiredLabel: true,

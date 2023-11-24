@@ -9,7 +9,6 @@ import NoSearchResults from '@components/Helpers/Table/NoSearchResults'
 import { ColumnVisibilityAtom, SelectedMovieAtom } from '@atoms/ViewDetails'
 import { useEffect, useState } from 'react'
 import { Actor, ActorRoles } from '@api/Models/Movie/types'
-import getEnumKey from '@utils/basic/getEnumKey'
 import columns from './Columns'
 
 const Table = () => {
@@ -34,7 +33,7 @@ const Table = () => {
 	 * Rows data mapping
 	 */
 	const rows: GridRowsProp = tableData?.map(({ role, ...other }) => ({
-		actorRole: ActorRoles[getEnumKey(ActorRoles, role) as keyof typeof ActorRoles],
+		actorRole: ActorRoles[role as unknown as keyof typeof ActorRoles],
 		...other,
 	}))
 

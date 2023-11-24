@@ -5,6 +5,7 @@ import dataPrefix from '@components/Pages/Edit/dataPrefix'
 import { IFieldValue } from '@forms/generate/types/IFieldValue'
 import { getRecoil, setRecoil } from '@admixltd/admix-component-library/RecoilNexus'
 import { EditSelectedMovieAtom } from '@atoms/Dashboard'
+import { debounce } from '@mui/material'
 import { EditActorColumnDefinition } from './types'
 
 const removeActor = (id: string) => {
@@ -27,12 +28,14 @@ const removeActor = (id: string) => {
 	})
 }
 
+const debouncedRemoveActor = debounce(removeActor, 500)
+
 export default () =>
 	({
 		field: 'remove',
 		headerName: '',
 		sortable: false,
 		renderCell: ({ row: { id } }) => (
-			<Button icon={<Close />} color="gray500" onClick={() => removeActor(id)} />
+			<Button icon={<Close />} color="gray500" onClick={() => debouncedRemoveActor(id)} />
 		),
 	} as EditActorColumnDefinition)

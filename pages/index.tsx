@@ -5,7 +5,7 @@ import MainLayout from '@components/Layouts/Main'
 import initialPropsWrapper from '@helpers/initialPropsWrapper'
 import { NextPageWithProps } from '@interfaces/NextPage'
 import MovieCard from '@components/Pages/Dashboard/List/MovieCard'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import {
 	ActiveMoviesAtom,
 	MoviesAtom,
@@ -26,15 +26,32 @@ import Table from '@components/Pages/Dashboard/Table/Table'
 import { getCookie } from 'cookies-next'
 import pages from '@constants/pages'
 import NoData from '@components/Pages/Dashboard/NoData'
+import { SortingModel, ViewModel } from '@api/Models/Movie/types'
 
 const Page: NextPageWithProps = () => {
-	const { results, addMovie, noDataToShow } = useRecoilValue(LabelsAtom).pages.dashboard
+	const {
+		results,
+		addMovie,
+		noDataToShow,
+		sort: sortLabels,
+		view: viewLabels,
+	} = useRecoilValue(LabelsAtom).pages.dashboard
 	const movies = useRecoilValue(MoviesAtom)
-	const sort = useRecoilValue(SortMoviesAtom)
-	const view = useRecoilValue(ViewMoviesAtom)
+	const [sort, setSort] = useRecoilState(SortMoviesAtom)
+	const [view, setView] = useRecoilState(ViewMoviesAtom)
 	const activeMovies = useRecoilValue(ActiveMoviesAtom)
 	const router = useRouter()
 	const { locale } = router ?? {}
+
+	useEffect(() => {
+		const viewVal = viewLabels.options.find(option => option.val === view.val)
+		setView(viewVal as ViewModel)
+
+		const sortVal = sortLabels.options.find(
+			option => option.val.key === sort.val.key && option.val.order === sort.val.order
+		)
+		setSort(sortVal as SortingModel)
+	}, [])
 
 	useEffect(() => {
 		sortMovies([...movies])

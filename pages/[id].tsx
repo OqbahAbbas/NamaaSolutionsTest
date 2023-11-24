@@ -26,6 +26,7 @@ import dataPrefix from '@components/Pages/Edit/dataPrefix'
 import { useRouter } from 'next/router'
 import Table from '@components/Pages/Edit/FormContent/Table/Table'
 import generateId from '@utils/basic/generateId'
+import { debounce } from '@mui/material'
 
 const Page: NextPageWithProps<{
 	movie: Movie
@@ -58,6 +59,8 @@ const Page: NextPageWithProps<{
 		})
 	}
 
+	const debouncedAddActor = debounce(addActor, 500)
+
 	return (
 		<>
 			<Meta title={isCreate ? createHeader : `${editHeader} | ${movie.title}`} />
@@ -77,7 +80,7 @@ const Page: NextPageWithProps<{
 									color="primary"
 									round
 									variant="contained"
-									onClick={addActor}
+									onClick={debouncedAddActor}
 								>
 									{table.addActor}
 								</Button>

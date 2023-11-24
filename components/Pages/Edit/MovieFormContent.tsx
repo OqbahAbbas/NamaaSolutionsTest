@@ -17,7 +17,7 @@ const UpdateMovieFormContent = () => {
 					{
 						type: 'RegularInput',
 						name: 'title',
-						validation: ['required'],
+						validation: ['required', { name: 'maxLength', options: { value: 50 } }],
 						props: {
 							label: labels.fields.title,
 							placeholder: labels.fields.title,
@@ -25,24 +25,29 @@ const UpdateMovieFormContent = () => {
 						},
 					},
 					{
-						type: 'TextArea',
-						name: 'description',
-						props: {
-							label: labels.fields.description,
-							placeholder: labels.fields.description,
-							minRows: 3,
-						},
-					},
-					{
 						type: 'NumericInput',
 						name: 'year',
-						validation: ['required'],
+						validation: [
+							'required',
+							{ name: 'maxValue', options: { value: 2023 } },
+							{ name: 'minValue', options: { value: 1900 } },
+						],
 						props: {
 							label: labels.fields.year,
 							placeholder: labels.fields.year,
 							requiredLabel: true,
 							thousandSeparator: '',
-							max: 2023,
+							className: 'yearField',
+						},
+					},
+					{
+						type: 'TextArea',
+						name: 'description',
+						validation: [{ name: 'maxLength', options: { value: 200 } }],
+						props: {
+							label: labels.fields.description,
+							placeholder: labels.fields.description,
+							minRows: 3,
 						},
 					},
 				],
@@ -62,8 +67,20 @@ const UpdateMovieFormContent = () => {
 
 const Container = styled.div`
 	display: grid;
+	grid-template-columns: repeat(2, 1fr);
 	gap: 16px;
 	margin: 16px 0;
+
+	.yearField {
+		input {
+			direction: ltr !important;
+		}
+	}
+
+	${({ theme }) => theme.adaptive.md} {
+		grid-auto-flow: row;
+		grid-template-columns: 1fr;
+	}
 `
 
 export default UpdateMovieFormContent
