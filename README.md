@@ -6,7 +6,7 @@ Namaa Solution Test is a versatile movie platform enabling users to locally stor
 
 The Namaa Solution Test Movie Platform is live and accessible online! You can explore the application using the following link:
 
-[View Live Demo](https://namaa-solutions-movie-platform.vercel.app/en) - [Check it out here!](https://namaa-solutions-movie-platform.vercel.app/en)
+[View Live Demo](https://namaa-solutions-movie-platform.vercel.app/en)
 
 #### Key Features:
 - **Movie Management:** Add, edit, or delete movies effortlessly.
