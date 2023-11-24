@@ -2,6 +2,12 @@
 
 Namaa Solution Test is a versatile movie platform enabling users to locally store movie data using cookies. It offers comprehensive functionalities such as movie addition, editing, and deletion, supporting both list and table views. Users can conveniently filter and sort movies based on various criteria.
 
+### Access the Published Application
+
+The Namaa Solution Test Movie Platform is live and accessible online! You can explore the application using the following link:
+
+[View Live Demo](https://namaa-solutions-movie-platform.vercel.app/en) - [Check it out here!](https://namaa-solutions-movie-platform.vercel.app/en)
+
 #### Key Features:
 - **Movie Management:** Add, edit, or delete movies effortlessly.
 - **View Options:** Switch between list and table views for movies.
