@@ -21,7 +21,3 @@ To run this solution locally:
 To build this solution locally:
 1. Install the necessary packages: `yarn install`
 2. Build the solution: `yarn run build`
-
----
-
-Feel free to adjust the content and formatting according to your preferences! This version aims to succinctly highlight the key features and provide clear instructions for running and building the solution locally.
